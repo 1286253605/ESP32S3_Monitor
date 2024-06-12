@@ -32,6 +32,7 @@
 #include <ESP_IOExpander_Library.h>
 #include "lv_conf.h"
 #include <demos/lv_demos.h>
+#include "app.h"
 
 
 // Extend IO Pin define
@@ -213,7 +214,7 @@ void setup()
 
     /* Create a task to run the LVGL task periodically */
     lvgl_mux = xSemaphoreCreateRecursiveMutex();
-    xTaskCreate(lvgl_port_task, "lvgl", LVGL_TASK_STACK_SIZE, NULL, LVGL_TASK_PRIORITY, NULL);
+    xTaskCreate(lvgl_port_task, "lvgl", LVGL_TASK_STACK_SIZE, NULL, LVGL_TASK_PRIORITY, NULL); 
 
     /* Lock the mutex due to the LVGL APIs are not thread-safe */
     lvgl_port_lock(-1);
@@ -234,7 +235,8 @@ void setup()
      * Or try out a demo.
      * Don't forget to uncomment header and enable the demos in `lv_conf.h`. E.g. `LV_USE_DEMOS_WIDGETS`
      */
-    lv_demo_widgets();
+    start_app();
+    // lv_demo_widgets();
     // lv_demo_benchmark();
     // lv_demo_music();
     // lv_demo_stress();
