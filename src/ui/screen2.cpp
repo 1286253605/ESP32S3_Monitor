@@ -1,7 +1,11 @@
 ﻿#include "screen2.h"
 
 lv_obj_t* screen2;
-scr2_objs s2_all_obj;
+
+lv_obj_t* scr2_btn_next;
+lv_obj_t* scr2_label_main;
+lv_obj_t* btn_style_test;
+
 
 void scr2_create(void)
 {
@@ -21,17 +25,17 @@ void scr2_create(void)
         lv_palette_lighten(btn_border_color_lighten, 3));
     
     /*----component----*/
-    s2_all_obj.btn_next = lv_btn_create(screen2);
-    lv_obj_set_size(s2_all_obj.btn_next, 60, 30);
-    lv_obj_align(s2_all_obj.btn_next, LV_ALIGN_CENTER, 0, 0);
+    scr2_btn_next = lv_btn_create(screen2);
+    lv_obj_set_size(scr2_btn_next, 60, 30);
+    lv_obj_align(scr2_btn_next, LV_ALIGN_CENTER, 0, 0);
 
-    s2_all_obj.btn_style_test = lv_btn_create(screen2);
-    lv_obj_set_size(s2_all_obj.btn_style_test, 60, 30);
-    lv_obj_align_to(s2_all_obj.btn_style_test, s2_all_obj.btn_next,
+    btn_style_test = lv_btn_create(screen2);
+    lv_obj_set_size(btn_style_test, 60, 30);
+    lv_obj_align_to(btn_style_test, scr2_btn_next,
         LV_ALIGN_OUT_BOTTOM_MID, 0, 20);
 
     /* 有组件部分和组件状态两种 可以使用位运算合并 如LV_STATE_DEFAULT | LV_PART_MAIN */
-    lv_obj_add_style(s2_all_obj.btn_style_test, &btn_style, LV_STATE_DEFAULT);
+    lv_obj_add_style(btn_style_test, &btn_style, LV_STATE_DEFAULT);
 
 
 }

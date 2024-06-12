@@ -1,7 +1,7 @@
 ﻿#ifndef _APP_H
 #define _APP_H
 
-// #define SIMULATOR
+#define SIMULATOR
 #ifdef SIMULATOR
 #include "lvgl/lvgl.h"
 #else
