@@ -9,31 +9,37 @@
 #endif // SIMULATOR
 
 extern lv_obj_t* screen1;
+typedef struct
+{
+    lv_obj_t* btn_next;
+    lv_obj_t* label_main;
 
-extern    lv_obj_t* btn_next;
-extern    lv_obj_t* label_main;
+    lv_obj_t* area_1_1;
+    lv_obj_t* area_2_1;
+    lv_obj_t* area_2_2;
 
-extern    lv_obj_t* area_1_1;
-extern    lv_obj_t* area_2_1;
-extern    lv_obj_t* area_2_2;
+    lv_obj_t* label_cpu_txt;
+    lv_obj_t* label_cpu_temp;
+    lv_obj_t* label_cpu_load;
 
-extern    lv_obj_t* label_cpu_txt;
-extern    lv_obj_t* label_cpu_temp;
-extern    lv_obj_t* label_cpu_load;
+    lv_obj_t* label_gpu_txt;
+    lv_obj_t* label_gpu_temp;
+    lv_obj_t* label_gpu_load;
 
-extern    lv_obj_t* label_gpu_txt;
-extern    lv_obj_t* label_gpu_temp;
-extern    lv_obj_t* label_gpu_load;
+    lv_obj_t* label_ram_txt;
+    lv_obj_t* label_ram_temp;
+    lv_obj_t* label_ram_load;
 
-extern    lv_obj_t* label_ram_txt;
-extern    lv_obj_t* label_ram_temp;
-extern    lv_obj_t* label_ram_load;
+    lv_obj_t* slider_main;
+    lv_obj_t* slider_gpu;
+    lv_obj_t* slider_ram;
 
-extern    lv_obj_t* slider_main;
-extern    lv_obj_t* slider_gpu;
-extern    lv_obj_t* slider_ram;
+    lv_obj_t* label_large_load_main;
+    lv_obj_t* label_large_load_gpu;
+    lv_obj_t* label_large_load_ram;
+} s1_all_obj;
 
-
+extern s1_all_obj s1_all;
 
 
 

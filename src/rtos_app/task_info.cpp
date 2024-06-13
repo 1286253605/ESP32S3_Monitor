@@ -28,10 +28,11 @@ void task_parser_serial_data(void* arg)
                 number_str.trim();
                 int temp = number_str.toInt();
                 pc_data_array[index] = temp;
-                Serial.printf("%s:%d\n", number_str.c_str(), pc_data_array[index]);
+                // Serial.printf("%s:%d\n", number_str.c_str(), pc_data_array[index]);
                 index++;
             } else {
-                Serial.printf("manba out %d\n", index);
+                // Serial.printf("manba out %d\n", index);
+                Serial.flush();
                 break;
             }
 
@@ -41,22 +42,23 @@ void task_parser_serial_data(void* arg)
         if ( index != 0)
         {
             set_UI_Data(pc_data_array);
-            Serial.printf("data0:%d", pc_data_array[0]);
             memset(pc_data_array, 0, DATA_ARRAY_MAX);
             index = 0;
         } 
 
         lvgl_port_unlock();
-        vTaskDelay(pdMS_TO_TICKS(500));
+        vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
 
 void set_UI_Data( int* data_array )
 {
     
-    lv_label_set_text_fmt(label_cpu_load, "Load:%d", data_array[POS_CLOAD]);
-    lv_slider_set_value( slider_main, data_array[POS_CLOAD], LV_ANIM_OFF );
-    lv_slider_set_value( slider_gpu,  data_array[POS_GLOAD], LV_ANIM_OFF );
-    lv_slider_set_value( slider_ram,  data_array[POS_RLOAD], LV_ANIM_OFF );
+    lv_label_set_text_fmt(s1_all.label_large_load_main, "%d", data_array[POS_CLOAD]);
+    lv_label_set_text_fmt(s1_all.label_large_load_gpu,  "%d", data_array[POS_GLOAD]);
+    lv_label_set_text_fmt(s1_all.label_large_load_ram,  "%d", data_array[POS_RLOAD]);
+    lv_slider_set_value( s1_all.slider_main, data_array[POS_CLOAD], LV_ANIM_OFF );
+    lv_slider_set_value( s1_all.slider_gpu,  data_array[POS_GLOAD], LV_ANIM_OFF );
+    lv_slider_set_value( s1_all.slider_ram,  data_array[POS_RLOAD], LV_ANIM_OFF );
 
 }

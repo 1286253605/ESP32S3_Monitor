@@ -18,18 +18,10 @@ void eventHandlerSwitchPage(lv_event_t* e)
 
 void add_callback(void)
 {
-    lv_obj_add_event_cb(btn_next, eventHandlerSwitchPage, LV_EVENT_CLICKED, screen2);
+    lv_obj_add_event_cb(s1_all.btn_next, eventHandlerSwitchPage, LV_EVENT_CLICKED, screen2);
     lv_obj_add_event_cb(scr2_btn_next, eventHandlerSwitchPage, LV_EVENT_CLICKED, screen1);
 }
 
-void timer_callback(lv_timer_t* timer)
-{
-
-}
-void timer_create(void)
-{
-    lv_timer_t* my_timer = lv_timer_create(timer_callback, 1000, NULL);
-}
 
 void start_app(void)
 {
@@ -37,7 +29,6 @@ void start_app(void)
     scr1_create();
     scr2_create();
     add_callback();
-    timer_create();
 
     lv_scr_load(screen1);
 }

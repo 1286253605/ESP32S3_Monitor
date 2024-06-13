@@ -215,7 +215,7 @@ void setup()
     /* Create a task to run the LVGL task periodically */
     lvgl_mux = xSemaphoreCreateRecursiveMutex();
     xTaskCreate(lvgl_port_task, "lvgl", LVGL_TASK_STACK_SIZE, NULL, LVGL_TASK_PRIORITY, NULL); 
-    xTaskCreate(task_parser_serial_data, "parser", LVGL_TASK_STACK_SIZE*2, NULL, LVGL_TASK_PRIORITY, NULL); 
+    xTaskCreate(task_parser_serial_data, "parser", LVGL_TASK_STACK_SIZE*4, NULL, LVGL_TASK_PRIORITY, NULL); 
     /* Lock the mutex due to the LVGL APIs are not thread-safe */
     lvgl_port_lock(-1);
 
