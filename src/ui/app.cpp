@@ -19,7 +19,7 @@ void eventHandlerSwitchPage(lv_event_t* e)
 void add_callback(void)
 {
     lv_obj_add_event_cb(s1_all.btn_next, eventHandlerSwitchPage, LV_EVENT_CLICKED, screen2);
-    lv_obj_add_event_cb(scr2_btn_next, eventHandlerSwitchPage, LV_EVENT_CLICKED, screen1);
+    lv_obj_add_event_cb(s2_all.scr2_btn_next, eventHandlerSwitchPage, LV_EVENT_CLICKED, screen1);
 }
 
 

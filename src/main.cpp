@@ -105,6 +105,7 @@ void lvgl_port_tp_read(lv_indev_drv_t * indev, lv_indev_data_t * data)
         data->point.y = point.y;
 
         Serial.printf("Touch point: x %d, y %d\n", point.x, point.y);
+        // Serial.printf("Deafult free size: %d\n", heap_caps_get_free_size(MALLOC_CAP_DEFAULT));
     }
 }
 #endif
@@ -159,7 +160,9 @@ void setup()
     static lv_disp_draw_buf_t draw_buf;
     /* Using double buffers is more faster than single buffer */
     /* Using internal SRAM is more fast than PSRAM (Note: Memory allocated using `malloc` may be located in PSRAM.) */
-    uint8_t *buf = (uint8_t *)heap_caps_calloc(1, LVGL_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_INTERNAL);
+    // uint8_t *buf = (uint8_t *)heap_caps_calloc(1, LVGL_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_INTERNAL);
+    /* 0614-优化显示 强制使用PSRAM分配内存 */
+    uint8_t *buf = (uint8_t *)heap_caps_calloc(1, LVGL_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_SPIRAM);
     assert(buf);
     lv_disp_draw_buf_init(&draw_buf, buf, NULL, LVGL_BUF_SIZE);
 
@@ -171,6 +174,8 @@ void setup()
     disp_drv.ver_res = ESP_PANEL_LCD_V_RES;
     disp_drv.flush_cb = lvgl_port_disp_flush;
     disp_drv.draw_buf = &draw_buf;
+    /* 0614 优化显示 全像素刷新 */
+    disp_drv.full_refresh = 1;
     lv_disp_drv_register(&disp_drv);
 
 #if ESP_PANEL_USE_LCD_TOUCH

@@ -78,8 +78,9 @@
  *====================*/
 
 /*Default display refresh period. LVG will redraw changed areas with this period time*/
+/* 0614 30->20 使其最高有50FPS */
 #define LV_DISP_DEF_REFR_PERIOD 30      /*[ms]*/
-
+/* 0614 减少间隔 30->10 增加触摸灵敏度 */
 /*Input device read period in milliseconds*/
 #define LV_INDEV_DEF_READ_PERIOD 30     /*[ms]*/
 
@@ -279,7 +280,7 @@
  *-----------*/
 
 /*1: Show CPU usage and FPS count*/
-#define LV_USE_PERF_MONITOR 0
+#define LV_USE_PERF_MONITOR 1
 #if LV_USE_PERF_MONITOR
     #define LV_USE_PERF_MONITOR_POS LV_ALIGN_BOTTOM_RIGHT
 #endif

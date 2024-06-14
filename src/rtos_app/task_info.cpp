@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "Vector.h"
 #include "screen1.h"
+#include "screen2.h"
 #include "task_info.h"
 #define DATA_ARRAY_MAX 10
 
@@ -12,6 +13,7 @@ int pc_data_array[DATA_ARRAY_MAX];
 void lvgl_port_lock(int timeout_ms);
 void lvgl_port_unlock(void);
 void set_UI_Data( int* data_array );
+void set_chart_data( int* data );
 
 void task_parser_serial_data(void* arg)
 {
@@ -41,7 +43,10 @@ void task_parser_serial_data(void* arg)
         lvgl_port_lock(-1);
         if ( index != 0)
         {
-            set_UI_Data(pc_data_array);
+            if ( lv_scr_act() == screen1 )
+                set_UI_Data(pc_data_array);
+            else if ( lv_scr_act() == screen2 )
+                set_chart_data( pc_data_array );
             memset(pc_data_array, 0, DATA_ARRAY_MAX);
             index = 0;
         } 
@@ -61,4 +66,11 @@ void set_UI_Data( int* data_array )
     lv_slider_set_value( s1_all.slider_gpu,  data_array[POS_GLOAD], LV_ANIM_OFF );
     lv_slider_set_value( s1_all.slider_ram,  data_array[POS_RLOAD], LV_ANIM_OFF );
 
+}
+
+void set_chart_data( int* data )
+{
+    lv_chart_set_next_value( s2_all.chart_main, s2_all.ser1, data[POS_CLOAD] );
+    lv_chart_set_next_value( s2_all.chart_main, s2_all.ser2, data[POS_GLOAD] );
+    lv_chart_set_next_value( s2_all.chart_main, s2_all.ser3, data[POS_RLOAD] );
 }

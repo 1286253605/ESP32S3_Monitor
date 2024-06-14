@@ -6,7 +6,8 @@ lv_obj_t* screen1;
 void create_slider(lv_obj_t** slider, lv_obj_t* parent, lv_obj_t* align_txt);
 void create_large_txt(lv_obj_t** label, lv_obj_t* parent, const char* name);
 void create_temp_load(lv_obj_t** temp, lv_obj_t** load, lv_obj_t* parent, lv_obj_t* align_obj);
-void create_large_Load( lv_obj_t** label_big, lv_obj_t* parent );
+void create_large_Load(lv_obj_t** label_big, lv_obj_t* parent, const char* name);
+
 s1_all_obj s1_all;
 
 
@@ -49,7 +50,7 @@ void scr1_create(void)
     /* Slider CPU*/
     create_slider(&s1_all.slider_main, s1_all.area_1_1, s1_all.label_cpu_txt);
     /* 末尾的数显 */
-    create_large_Load(&s1_all.label_large_load_main, s1_all.area_1_1);
+    create_large_Load(&s1_all.label_large_load_main, s1_all.area_1_1, "50%");
 
 
     /*----------------GPU部分----------------*/
@@ -60,7 +61,7 @@ void scr1_create(void)
     create_temp_load(&s1_all.label_gpu_temp, &s1_all.label_gpu_load,
         s1_all.area_2_1, s1_all.slider_gpu);
     /* 末尾的数显 */
-    create_large_Load(&s1_all.label_large_load_gpu, s1_all.area_2_1);
+    create_large_Load(&s1_all.label_large_load_gpu, s1_all.area_2_1, "50%");
 
 
     /*----------------RAM部分----------------*/
@@ -71,7 +72,7 @@ void scr1_create(void)
     /* Slider RAM*/
     create_slider(&s1_all.slider_ram, s1_all.area_2_2, s1_all.label_ram_txt);
     /* 末尾的数显 */
-    create_large_Load(&s1_all.label_large_load_ram, s1_all.area_2_2);
+    create_large_Load(&s1_all.label_large_load_ram, s1_all.area_2_2, "50%");
 }
 
 void create_slider(lv_obj_t** slider, lv_obj_t* parent, lv_obj_t* align_txt)
@@ -142,7 +143,7 @@ void create_temp_load(lv_obj_t** temp, lv_obj_t** load, lv_obj_t* parent, lv_obj
 
 }
 
-void create_large_Load( lv_obj_t** label_big, lv_obj_t* parent )
+void create_large_Load( lv_obj_t** label_big, lv_obj_t* parent, const char* name )
 {
     *label_big = lv_label_create(parent);
     static lv_style_t style_label;
@@ -152,4 +153,5 @@ void create_large_Load( lv_obj_t** label_big, lv_obj_t* parent )
     lv_obj_add_style(*label_big, &style_label, LV_STATE_DEFAULT);
 
     lv_obj_align(*label_big, LV_ALIGN_RIGHT_MID, -70, 0);
+    lv_label_set_text(*label_big, name);
 }

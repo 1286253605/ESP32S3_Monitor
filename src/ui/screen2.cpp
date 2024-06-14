@@ -2,10 +2,10 @@
 
 lv_obj_t* screen2;
 
-lv_obj_t* scr2_btn_next;
-lv_obj_t* scr2_label_main;
-lv_obj_t* btn_style_test;
-
+//lv_obj_t* scr2_btn_next;
+//lv_obj_t* scr2_label_main;
+//lv_obj_t* btn_style_test;
+s2_all_obj s2_all;
 
 void scr2_create(void)
 {
@@ -25,17 +25,44 @@ void scr2_create(void)
         lv_palette_lighten(btn_border_color_lighten, 3));
     
     /*----component----*/
-    scr2_btn_next = lv_btn_create(screen2);
-    lv_obj_set_size(scr2_btn_next, 60, 30);
-    lv_obj_align(scr2_btn_next, LV_ALIGN_CENTER, 0, 0);
-
-    btn_style_test = lv_btn_create(screen2);
-    lv_obj_set_size(btn_style_test, 60, 30);
-    lv_obj_align_to(btn_style_test, scr2_btn_next,
-        LV_ALIGN_OUT_BOTTOM_MID, 0, 20);
+    s2_all.scr2_btn_next = lv_btn_create(screen2);
+    lv_obj_set_size(s2_all.scr2_btn_next, 60, 30);
+    lv_obj_align(s2_all.scr2_btn_next, LV_ALIGN_BOTTOM_RIGHT, -30, -30);
 
     /* 有组件部分和组件状态两种 可以使用位运算合并 如LV_STATE_DEFAULT | LV_PART_MAIN */
-    lv_obj_add_style(btn_style_test, &btn_style, LV_STATE_DEFAULT);
+    //lv_obj_add_style(btn_style_test, &btn_style, LV_STATE_DEFAULT);
+    lv_obj_add_style(s2_all.scr2_btn_next, &btn_style, LV_STATE_DEFAULT);
 
+    /*----chart----*/
+    s2_all.chart_main = lv_chart_create(screen2);
+    lv_obj_set_size(s2_all.chart_main, 700, 400);
+    lv_obj_align(s2_all.chart_main, LV_ALIGN_CENTER, 0, -25);
+    lv_chart_set_type(s2_all.chart_main, LV_CHART_TYPE_LINE);
+    lv_chart_set_update_mode(s2_all.chart_main, LV_CHART_UPDATE_MODE_SHIFT);
+    lv_chart_set_div_line_count(s2_all.chart_main, 50, 50); /* 设置XY轴有多少个点 */
+    lv_chart_set_point_count( s2_all.chart_main, 50 );      /* 设置一条线上可以有多少个数据点 */
+    lv_chart_set_range(s2_all.chart_main, LV_CHART_AXIS_PRIMARY_Y, 0, 100);
+    lv_chart_set_range(s2_all.chart_main, LV_CHART_AXIS_SECONDARY_Y, 0, 100);
+    lv_chart_set_axis_tick(s2_all.chart_main, LV_CHART_AXIS_PRIMARY_Y, 10, 5, 6, 2, true, 50);
+    lv_chart_set_axis_tick(s2_all.chart_main, LV_CHART_AXIS_SECONDARY_Y, 10, 5, 6, 2, true, 50);
+    s2_all.ser1 = lv_chart_add_series(s2_all.chart_main,
+        lv_color_hex(0x2874A6), LV_CHART_AXIS_PRIMARY_Y);
+    s2_all.ser2 = lv_chart_add_series(s2_all.chart_main,
+        lv_color_hex(0x229954), LV_CHART_AXIS_PRIMARY_Y);
+    s2_all.ser3 = lv_chart_add_series(s2_all.chart_main,
+        lv_color_hex(0xF4D03F), LV_CHART_AXIS_PRIMARY_Y);
+    // for (int i = 0; i < 10; i++)
+    // {
+    //     lv_chart_set_next_value(s2_all.chart_main, s2_all.ser1, lv_rand(0,100));
+    //     lv_chart_set_next_value(s2_all.chart_main, s2_all.ser2, lv_rand(0, 100));
+    //     lv_chart_set_next_value(s2_all.chart_main, s2_all.ser3, lv_rand(0, 100));
+    // }
 
+    s2_all.label_main = lv_label_create(screen2);
+    lv_obj_align_to(s2_all.label_main, s2_all.chart_main, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
+    lv_label_set_recolor(s2_all.label_main, true);
+    lv_label_set_text(s2_all.label_main,
+        "#2874A6 ---CPU#     #229954 ---GPU#    #F4D03F ---RAM#");
+
+    
 }
