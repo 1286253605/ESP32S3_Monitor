@@ -73,6 +73,9 @@ void scr1_create(void)
     create_slider(&s1_all.slider_ram, s1_all.area_2_2, s1_all.label_ram_txt);
     /* 末尾的数显 */
     create_large_Load(&s1_all.label_large_load_ram, s1_all.area_2_2, "50%");
+
+    /*----------------屏幕滑动部分----------------*/
+
 }
 
 void create_slider(lv_obj_t** slider, lv_obj_t* parent, lv_obj_t* align_txt)
@@ -155,3 +158,6 @@ void create_large_Load( lv_obj_t** label_big, lv_obj_t* parent, const char* name
     lv_obj_align(*label_big, LV_ALIGN_RIGHT_MID, -70, 0);
     lv_label_set_text(*label_big, name);
 }
+
+
+
